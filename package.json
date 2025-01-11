@@ -2,20 +2,24 @@
   "name": "rn-screen_scout",
   "version": "1.0.0",
   "main": "index.ts",
+  "type": "module",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "prepare": "husky"
   },
   "dependencies": {
     "expo": "~52.0.25",
     "expo-status-bar": "~2.0.1",
+    "husky": "^9.1.7",
     "react": "18.3.1",
     "react-native": "0.76.6"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
+    "@commitlint/cli": "^19.6.1",
     "@types/react": "~18.3.12",
     "typescript": "^5.3.3"
   },
