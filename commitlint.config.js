@@ -9,7 +9,7 @@ const expectedTypes = [
   "ci",
 ];
 
-module.exports = {
+export default {
   plugins: [
     {
       rules: {

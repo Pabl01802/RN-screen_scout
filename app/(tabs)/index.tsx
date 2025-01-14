@@ -1,9 +1,9 @@
+import React from "react";
 import { useTheme } from "@emotion/react";
 import { SafeAreaView, Text } from "react-native";
 
 const HomePage = () => {
   const theme = useTheme();
-  console.log(theme);
 
   return (
     <SafeAreaView>
