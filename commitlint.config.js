@@ -7,9 +7,9 @@ const expectedTypes = [
   "refactor",
   "docs",
   "ci",
-]
+];
 
-export default {
+module.exports = {
   plugins: [
     {
       rules: {
@@ -20,9 +20,9 @@ export default {
               `Type must be one of: ${expectedTypes.join(
                 ", "
               )} \n Example: feat: add new feature`,
-            ]
+            ];
           }
-          return [true]
+          return [true];
         },
       },
     },
@@ -30,4 +30,4 @@ export default {
   rules: {
     "conventional-config": [2, "always"],
   },
-}
+};
