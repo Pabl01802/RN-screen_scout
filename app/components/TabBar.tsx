@@ -4,11 +4,12 @@ import styled from "@emotion/native";
 import { BodyText } from "./Text/BodyText";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useTheme } from "@emotion/react";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-const TabsContainer = styled.View(({ theme }) => ({
+const TabsContainer = styled.View<{ insets: number }>(({ theme, insets }) => ({
   backgroundColor: theme.colors.bg.tertiary,
   position: "absolute",
-  bottom: 0,
+  bottom: !insets ? 10 : 0,
   left: "50%",
   transform: [
     {
@@ -38,6 +39,7 @@ type Icons = {
 
 export const TabBar = ({ state, navigation }: BottomTabBarProps) => {
   const theme = useTheme();
+  const insets = useSafeAreaInsets();
 
   const icons: Icons = {
     index: {
@@ -59,7 +61,7 @@ export const TabBar = ({ state, navigation }: BottomTabBarProps) => {
   };
 
   return (
-    <TabsContainer>
+    <TabsContainer insets={insets.bottom}>
       {state.routes.map((route) => (
         <TabContainer
           key={route.key}

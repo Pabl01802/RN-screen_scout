@@ -1,12 +1,12 @@
 import React from "react";
-import { Container } from "../components/Container";
-import { BodyText } from "../components/Text/BodyText";
+import { ScrollableContainer } from "../components/ScrollableContainer";
+import { MoviesCarousel } from "../components/MoviesCarousel";
 
 const Home = () => {
   return (
-    <Container>
-      <BodyText>Test</BodyText>
-    </Container>
+    <ScrollableContainer>
+      <MoviesCarousel />
+    </ScrollableContainer>
   );
 };
 export default Home;
