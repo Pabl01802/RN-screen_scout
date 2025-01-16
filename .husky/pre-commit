@@ -1,1 +1,1 @@
-npx eslint
+yarn eslint

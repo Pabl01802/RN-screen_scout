@@ -2,11 +2,12 @@ import React from "react";
 import { Container } from "../components/Container";
 import { BodyText } from "../components/Text/BodyText";
 
-const Home = () => {
+const Saved = () => {
   return (
     <Container>
-      <BodyText>Test</BodyText>
+      <BodyText>Saved</BodyText>
     </Container>
   );
 };
-export default Home;
+
+export default Saved;

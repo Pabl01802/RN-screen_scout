@@ -12,6 +12,7 @@
   "dependencies": {
     "@emotion/native": "^11.11.0",
     "@emotion/react": "^11.14.0",
+    "@react-navigation/bottom-tabs": "^7.2.0",
     "expo": "~52.0.25",
     "expo-constants": "~17.0.4",
     "expo-linking": "~7.0.4",
