@@ -13,6 +13,7 @@ export default [
   {
     rules: {
       "no-console": "error",
+      "@typescript-eslint/no-empty-object-type": "off",
     },
   },
 ];

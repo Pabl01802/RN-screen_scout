@@ -4,7 +4,6 @@ import { SafeAreaView, Text } from "react-native";
 
 const HomePage = () => {
   const theme = useTheme();
-
   return (
     <SafeAreaView>
       <Text

@@ -9,7 +9,8 @@ const expectedTypes = [
   "ci",
 ];
 
-export default {
+// eslint-disable-next-line no-undef
+module.exports = {
   plugins: [
     {
       rules: {

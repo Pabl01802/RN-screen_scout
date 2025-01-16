@@ -10,4 +10,8 @@ export const theme = {
   },
 };
 
-export type AppTheme = typeof theme;
+type AppTheme = typeof theme;
+
+declare module "@emotion/react" {
+  interface Theme extends AppTheme {}
+}
