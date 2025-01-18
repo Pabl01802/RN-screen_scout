@@ -2,16 +2,16 @@ import * as React from "react";
 import { Dimensions } from "react-native";
 import Carousel from "react-native-reanimated-carousel";
 import { useNowPlayingQuery } from "../hooks/useNowPlayingQuery";
-import { getSmallBackdrop } from "../utils/images/getSmallBackdrop";
 import { Heading1 } from "./Text/Heading1";
 import styled from "@emotion/native";
 import { Button } from "./Button";
 import { LinearGradient } from "expo-linear-gradient";
 import { useTheme } from "@emotion/react";
+import { getMediumImage } from "../utils/images/getMediumImage";
 
 const ImageContainer = styled.View({
   position: "relative",
-  flex: 1,
+  height: 195,
 });
 
 const StyledImage = styled.Image({
@@ -62,7 +62,7 @@ export const MoviesCarousel = () => {
           <ImageContainer>
             <StyledImage
               source={{
-                uri: getSmallBackdrop(item.backdrop_path),
+                uri: getMediumImage(item.backdrop_path),
               }}
             />
             <StyledHeading center bold numberOfLines={1}>

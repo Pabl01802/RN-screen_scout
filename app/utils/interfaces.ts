@@ -31,4 +31,5 @@ export interface MovieResponse {
 export interface BodyTextProps extends TextProps {
   center?: boolean;
   bold?: boolean;
+  color?: string;
 }
