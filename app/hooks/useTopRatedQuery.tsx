@@ -4,7 +4,7 @@ import { axiosClient } from "../utils/axiosClient";
 import { MovieResponse } from "../utils/interfaces";
 import { hoursToMiliseconds } from "../utils/hoursToMiliseconds";
 
-export const useTopRatedQuery = () =>
+export const useTopRatedQuery = (queryEnabled: boolean) =>
   useQuery<MovieResponse>({
     queryKey: [queryKeys.TOP_RATED],
     queryFn: async () => {
@@ -13,4 +13,5 @@ export const useTopRatedQuery = () =>
       return movies;
     },
     staleTime: hoursToMiliseconds(24),
+    enabled: queryEnabled,
   });

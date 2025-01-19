@@ -33,3 +33,5 @@ export interface BodyTextProps extends TextProps {
   bold?: boolean;
   color?: string;
 }
+
+export type Category = "Popular" | "Now Playing" | "Upcoming" | "Top Rated";

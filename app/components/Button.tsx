@@ -10,6 +10,7 @@ const StyledOpacity = styled.TouchableOpacity<{ secondary?: boolean }>(
     borderRadius: theme.spacings.xl,
     borderWidth: 2,
     borderColor: theme.colors.bg.secondary,
+    justifyContent: "center",
   })
 );
 
@@ -17,9 +18,13 @@ interface StyledButtonProps extends TouchableOpacityProps {
   secondary?: boolean;
 }
 
-export const Button = ({ children, secondary }: StyledButtonProps) => {
+export const Button = ({
+  children,
+  secondary,
+  ...props
+}: StyledButtonProps) => {
   return (
-    <StyledOpacity secondary={secondary}>
+    <StyledOpacity secondary={secondary} {...props}>
       <BodyText center>{children}</BodyText>
     </StyledOpacity>
   );
