@@ -15,6 +15,7 @@ import { withOpacity } from "../utils/withOpacity";
 import { useTheme } from "@emotion/react";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useRouter } from "expo-router";
+import { useSavedMoviesStore } from "../hooks/stores/useSavedMoviesStore";
 
 const StyledView = styled(Animated.View)(({ theme }) => ({
   backgroundColor: withOpacity(theme.colors.bg.tertiary, 0.7),
@@ -49,6 +50,10 @@ interface MovieCardProps {
 }
 
 export const MovieCard = ({ data, selected }: MovieCardProps) => {
+  const storage = useSavedMoviesStore((state) => state.movies);
+  const saveMovie = useSavedMoviesStore((state) => state.addMovie);
+  const removeMovie = useSavedMoviesStore((state) => state.removeMovie);
+
   const [isSelected, setIsSelected] = useState(false);
 
   const rotateValue = useSharedValue("0deg");
@@ -82,6 +87,8 @@ export const MovieCard = ({ data, selected }: MovieCardProps) => {
     opacity: darkBgOpacity.value,
   }));
 
+  const isSaved = !!storage.find((movie) => movie.id === data.id);
+
   return (
     <TouchableOpacity
       onPress={() => {
@@ -96,11 +103,27 @@ export const MovieCard = ({ data, selected }: MovieCardProps) => {
             color={theme.colors.bg.secondary}
             onPress={() => router.push(`/movies/${data.id}`)}
           />
-          <FontAwesome
-            name="download"
-            size={32}
-            color={theme.colors.bg.secondary}
-          />
+          {!isSaved ? (
+            <FontAwesome
+              name="download"
+              size={32}
+              color={theme.colors.bg.secondary}
+              onPress={() =>
+                saveMovie({
+                  id: data.id,
+                  title: data.title,
+                  posterPath: data.poster_path,
+                })
+              }
+            />
+          ) : (
+            <FontAwesome
+              name="times-circle"
+              size={32}
+              color={theme.colors.bg.secondary}
+              onPress={() => removeMovie(data.id)}
+            />
+          )}
         </IconsContainer>
       </StyledView>
       <StyledImage
