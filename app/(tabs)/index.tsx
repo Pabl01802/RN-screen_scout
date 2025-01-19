@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MoviesCarousel } from "../../components/MoviesCarousel";
 import { useTheme } from "@emotion/react";
 import { Container } from "../../components/Container";
@@ -45,6 +45,10 @@ const Home = () => {
   const theme = useTheme();
 
   const selectedCard = useSharedValue<number | undefined>(undefined);
+
+  useEffect(() => {
+    selectedCard.value = undefined;
+  }, [category]);
 
   const getFilteredData = () => {
     switch (category) {
