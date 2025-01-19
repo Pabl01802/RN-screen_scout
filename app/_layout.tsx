@@ -1,11 +1,15 @@
 import React from "react";
 import { ThemeProvider } from "@emotion/react";
 import { Stack } from "expo-router";
-import { theme } from "./theme/theme";
+import { theme } from "../theme/theme";
 import styled from "@emotion/native";
 import { QueryClientProvider } from "@tanstack/react-query";
-import { queryClient } from "./utils/queryClient";
+import { queryClient } from "../utils/queryClient";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import {
+  configureReanimatedLogger,
+  ReanimatedLogLevel,
+} from "react-native-reanimated";
 
 const StyledSafe = styled.View<{ topInset: number }>(({ theme, topInset }) => ({
   flex: 1,
@@ -15,6 +19,11 @@ const StyledSafe = styled.View<{ topInset: number }>(({ theme, topInset }) => ({
 
 const RootLayout = () => {
   const insets = useSafeAreaInsets();
+
+  configureReanimatedLogger({
+    level: ReanimatedLogLevel.warn,
+    strict: false, // Carousel keeps displaying warnings
+  });
 
   return (
     <QueryClientProvider client={queryClient}>

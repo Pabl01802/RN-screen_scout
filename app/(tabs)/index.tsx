@@ -1,33 +1,44 @@
 import React, { useState } from "react";
-import { MoviesCarousel } from "../components/MoviesCarousel";
+import { MoviesCarousel } from "../../components/MoviesCarousel";
 import { useTheme } from "@emotion/react";
-import { Container } from "../components/Container";
+import { Container } from "../../components/Container";
 import styled from "@emotion/native";
 import { FlatList } from "react-native";
-import { Heading2 } from "../components/Text/Heading2";
-import { usePopularQuery } from "../hooks/usePopularQuery";
-import { MovieCard } from "../components/MovieCard";
+import { Heading2 } from "../../components/Text/Heading2";
+import { usePopularQuery } from "../../hooks/usePopularQuery";
+import { MovieCard } from "../../components/MovieCard";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useHomeListStore } from "../theme/stores/useHomeListStore";
-import { CategoriesButtons } from "../components/CategoriesButtons";
-import { Category } from "../utils/interfaces";
-import { useNowPlayingQuery } from "../hooks/useNowPlayingQuery";
-import { useUpcomingQuery } from "../hooks/useUpcomingQuery";
-import { useTopRatedQuery } from "../hooks/useTopRatedQuery";
+import { useHomeListStore } from "../../theme/stores/useHomeListStore";
+import { CategoriesButtons } from "../../components/CategoriesButtons";
+import { Category } from "../../utils/interfaces";
+import { useNowPlayingQuery } from "../../hooks/useNowPlayingQuery";
+import { useUpcomingQuery } from "../../hooks/useUpcomingQuery";
+import { useTopRatedQuery } from "../../hooks/useTopRatedQuery";
+import { LoadingIndicator } from "../../components/LoadingIndicator";
 
 const StyledContainer = styled.View(({ theme }) => ({
   padding: theme.spacings.m,
 }));
+
+const StyledLoading = styled(LoadingIndicator)({
+  justifyContent: "flex-start",
+  paddingTop: 60,
+});
 
 const Home = () => {
   const [category, setCategory] = useState<Category>("Popular");
   const [columns] = useState(2);
   const setIsScrolling = useHomeListStore((state) => state.setIsScrolling);
 
-  const { data: popular } = usePopularQuery();
-  const { data: nowPlaying } = useNowPlayingQuery();
-  const { data: upcoming } = useUpcomingQuery(category === "Upcoming");
-  const { data: topRated } = useTopRatedQuery(category === "Top Rated");
+  const { data: popular, isFetching: isPopularFetching } = usePopularQuery();
+  const { data: nowPlaying, isFetching: isNowPlayingFetching } =
+    useNowPlayingQuery();
+  const { data: upcoming, isFetching: isUpcomingFetching } = useUpcomingQuery(
+    category === "Upcoming"
+  );
+  const { data: topRated, isFetching: isTopRatedFetching } = useTopRatedQuery(
+    category === "Top Rated"
+  );
 
   const insets = useSafeAreaInsets();
   const theme = useTheme();
@@ -47,6 +58,14 @@ const Home = () => {
     }
   };
 
+  const displayLoading = () => {
+    if (category === "Now Playing" && isNowPlayingFetching) return true;
+    else if (category === "Popular" && isPopularFetching) return true;
+    else if (category === "Top Rated" && isTopRatedFetching) return true;
+    else if (category === "Upcoming" && isUpcomingFetching) return true;
+    else return false;
+  };
+
   return (
     <Container>
       <MoviesCarousel />
@@ -56,21 +75,25 @@ const Home = () => {
           {category}
         </Heading2>
       </StyledContainer>
-      <FlatList
-        data={getFilteredData()?.results}
-        renderItem={({ item }) => <MovieCard data={item} />}
-        keyExtractor={(item) => item.id.toString()}
-        numColumns={columns}
-        columnWrapperStyle={{
-          justifyContent: "space-around",
-        }}
-        contentContainerStyle={{
-          rowGap: theme.spacings.lg,
-          paddingBottom: insets.bottom ? insets.bottom + 30 : 80,
-        }}
-        onMomentumScrollBegin={() => setIsScrolling(true)}
-        onMomentumScrollEnd={() => setIsScrolling(false)}
-      />
+      {displayLoading() ? (
+        <StyledLoading />
+      ) : (
+        <FlatList
+          data={getFilteredData()?.results}
+          renderItem={({ item }) => <MovieCard data={item} />}
+          keyExtractor={(item) => item.id.toString()}
+          numColumns={columns}
+          columnWrapperStyle={{
+            justifyContent: "space-around",
+          }}
+          contentContainerStyle={{
+            rowGap: theme.spacings.lg,
+            paddingBottom: insets.bottom ? insets.bottom + 30 : 80,
+          }}
+          onMomentumScrollBegin={() => setIsScrolling(true)}
+          onMomentumScrollEnd={() => setIsScrolling(false)}
+        />
+      )}
     </Container>
   );
 };
