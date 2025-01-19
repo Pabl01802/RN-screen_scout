@@ -7,6 +7,7 @@ import styled from "@emotion/native";
 import { Button } from "./Button";
 import { getMediumImage } from "../utils/images/getMediumImage";
 import { MovieGradient } from "./MovieGradient";
+import { useRouter } from "expo-router";
 
 const ImageContainer = styled.View({
   position: "relative",
@@ -36,6 +37,8 @@ const ButtonsContainer = styled.View(({ theme }) => ({
 }));
 
 export const MoviesCarousel = () => {
+  const router = useRouter();
+
   const nowPlaying = useNowPlayingQuery();
 
   const width = Dimensions.get("window").width;
@@ -60,7 +63,9 @@ export const MoviesCarousel = () => {
               {item.title}
             </StyledHeading>
             <ButtonsContainer>
-              <Button>Check out</Button>
+              <Button onPress={() => router.push(`movies/${item.id}`)}>
+                Check out
+              </Button>
               <Button secondary>Save for later</Button>
             </ButtonsContainer>
             <MovieGradient />
