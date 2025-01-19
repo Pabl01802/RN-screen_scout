@@ -15,6 +15,7 @@ import { useNowPlayingQuery } from "../../hooks/useNowPlayingQuery";
 import { useUpcomingQuery } from "../../hooks/useUpcomingQuery";
 import { useTopRatedQuery } from "../../hooks/useTopRatedQuery";
 import { LoadingIndicator } from "../../components/LoadingIndicator";
+import { useSharedValue } from "react-native-reanimated";
 
 const StyledContainer = styled.View(({ theme }) => ({
   padding: theme.spacings.m,
@@ -42,6 +43,8 @@ const Home = () => {
 
   const insets = useSafeAreaInsets();
   const theme = useTheme();
+
+  const selectedCard = useSharedValue<number | undefined>(undefined);
 
   const getFilteredData = () => {
     switch (category) {
@@ -80,7 +83,9 @@ const Home = () => {
       ) : (
         <FlatList
           data={getFilteredData()?.results}
-          renderItem={({ item }) => <MovieCard data={item} />}
+          renderItem={({ item }) => (
+            <MovieCard data={item} selected={selectedCard} />
+          )}
           keyExtractor={(item) => item.id.toString()}
           numColumns={columns}
           columnWrapperStyle={{
