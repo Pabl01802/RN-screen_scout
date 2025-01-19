@@ -8,8 +8,9 @@ const StyledScroll = styled.ScrollView(({ theme }) => ({
 
 export const ScrollableContainer = ({
   children,
+  ...props
 }: {
   children: React.ReactNode;
 }) => {
-  return <StyledScroll>{children}</StyledScroll>;
+  return <StyledScroll {...props}>{children}</StyledScroll>;
 };

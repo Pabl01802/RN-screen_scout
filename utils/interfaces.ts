@@ -1,5 +1,11 @@
 import { TextProps } from "react-native";
 
+export interface StorageMovie {
+  id: number;
+  title: string;
+  posterPath: string;
+}
+
 export interface Movie {
   adult: boolean;
   backdrop_path: string;

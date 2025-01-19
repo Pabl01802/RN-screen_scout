@@ -6,6 +6,11 @@ const StyledContainer = styled.View(({ theme }) => ({
   flex: 1,
 }));
 
-export const Container = ({ children }: { children: React.ReactNode }) => {
-  return <StyledContainer>{children}</StyledContainer>;
+export const Container = ({
+  children,
+  ...props
+}: {
+  children: React.ReactNode;
+}) => {
+  return <StyledContainer {...props}>{children}</StyledContainer>;
 };

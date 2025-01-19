@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { Dimensions } from "react-native";
 import Carousel from "react-native-reanimated-carousel";
 import { useNowPlayingQuery } from "../hooks/useNowPlayingQuery";
@@ -8,6 +8,8 @@ import { Button } from "./Button";
 import { getMediumImage } from "../utils/images/getMediumImage";
 import { MovieGradient } from "./MovieGradient";
 import { useRouter } from "expo-router";
+import { useSavedMoviesStore } from "../hooks/stores/useSavedMoviesStore";
+import { StorageMovie } from "../utils/interfaces";
 
 const ImageContainer = styled.View({
   position: "relative",
@@ -37,11 +39,26 @@ const ButtonsContainer = styled.View(({ theme }) => ({
 }));
 
 export const MoviesCarousel = () => {
+  const addMovie = useSavedMoviesStore((state) => state.addMovie);
+  const storage = useSavedMoviesStore((state) => state.movies);
+
   const router = useRouter();
 
   const nowPlaying = useNowPlayingQuery();
 
+  const handleSaveMovie = (movie: StorageMovie) => {
+    addMovie({
+      id: movie.id,
+      title: movie.title,
+      posterPath: movie.posterPath,
+    });
+  };
+
+  const isSaved = (movieId: number) =>
+    !!storage.find((movie) => movie.id === movieId);
+
   const width = Dimensions.get("window").width;
+
   return (
     <ImageContainer>
       <Carousel
@@ -66,7 +83,19 @@ export const MoviesCarousel = () => {
               <Button onPress={() => router.push(`movies/${item.id}`)}>
                 Check out
               </Button>
-              <Button secondary>Save for later</Button>
+              <Button
+                secondary
+                disabled={!!isSaved(item.id)}
+                onPress={() =>
+                  handleSaveMovie({
+                    id: item.id,
+                    title: item.title,
+                    posterPath: item.poster_path,
+                  })
+                }
+              >
+                {!isSaved(item.id) ? "Save for later" : "Already saved"}
+              </Button>
             </ButtonsContainer>
             <MovieGradient />
           </ImageContainer>
