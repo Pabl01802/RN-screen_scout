@@ -1,6 +1,6 @@
 import React from "react";
-import { Container } from "../components/Container";
-import { BodyText } from "../components/Text/BodyText";
+import { Container } from "../../components/Container";
+import { BodyText } from "../../components/Text/BodyText";
 
 const Saved = () => {
   return (
