@@ -10,6 +10,7 @@ import {
   configureReanimatedLogger,
   ReanimatedLogLevel,
 } from "react-native-reanimated";
+import { HeaderGoBack } from "../components/HeaderGoBack";
 
 const StyledSafe = styled.View<{ topInset: number }>(({ theme, topInset }) => ({
   flex: 1,
@@ -34,6 +35,16 @@ const RootLayout = () => {
               name="(tabs)"
               options={{
                 headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="movies/[movieId]"
+              options={{
+                title: "",
+                headerStyle: {
+                  backgroundColor: theme.colors.bg.primary,
+                },
+                headerLeft: () => <HeaderGoBack />,
               }}
             />
           </Stack>
