@@ -3,4 +3,5 @@ export const queryKeys = {
   POPULAR: "POPULAR",
   TOP_RATED: "TOP_RATED",
   UPCOMING: "UPCOMING",
+  MOVIE_DETAILS: "MOVIE_DETAILS",
 };

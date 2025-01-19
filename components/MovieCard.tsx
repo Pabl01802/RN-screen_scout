@@ -14,6 +14,7 @@ import Animated, {
 import { withOpacity } from "../utils/withOpacity";
 import { useTheme } from "@emotion/react";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { useRouter } from "expo-router";
 
 const StyledView = styled(Animated.View)(({ theme }) => ({
   backgroundColor: withOpacity(theme.colors.bg.tertiary, 0.7),
@@ -53,6 +54,7 @@ export const MovieCard = ({ data, selected }: MovieCardProps) => {
   const rotateValue = useSharedValue("0deg");
   const darkBgOpacity = useSharedValue(0);
   const theme = useTheme();
+  const router = useRouter();
 
   useEffect(() => {
     rotateValue.value = withTiming(isSelected ? "180deg" : "0deg");
@@ -92,6 +94,7 @@ export const MovieCard = ({ data, selected }: MovieCardProps) => {
             name="info-circle"
             size={32}
             color={theme.colors.bg.secondary}
+            onPress={() => router.push(`/movies/${data.id}`)}
           />
           <FontAwesome
             name="download"

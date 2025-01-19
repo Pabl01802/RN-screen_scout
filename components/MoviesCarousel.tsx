@@ -5,9 +5,8 @@ import { useNowPlayingQuery } from "../hooks/useNowPlayingQuery";
 import { Heading1 } from "./Text/Heading1";
 import styled from "@emotion/native";
 import { Button } from "./Button";
-import { LinearGradient } from "expo-linear-gradient";
-import { useTheme } from "@emotion/react";
 import { getMediumImage } from "../utils/images/getMediumImage";
+import { MovieGradient } from "./MovieGradient";
 
 const ImageContainer = styled.View({
   position: "relative",
@@ -26,13 +25,6 @@ const StyledHeading = styled(Heading1)(({ theme }) => ({
   paddingHorizontal: theme.spacings.m,
 }));
 
-const Gradient = styled(LinearGradient)({
-  zIndex: 2,
-  position: "absolute",
-  width: "100%",
-  height: "100%",
-});
-
 const ButtonsContainer = styled.View(({ theme }) => ({
   position: "absolute",
   zIndex: 9,
@@ -45,7 +37,6 @@ const ButtonsContainer = styled.View(({ theme }) => ({
 
 export const MoviesCarousel = () => {
   const nowPlaying = useNowPlayingQuery();
-  const theme = useTheme();
 
   const width = Dimensions.get("window").width;
   return (
@@ -72,7 +63,7 @@ export const MoviesCarousel = () => {
               <Button>Check out</Button>
               <Button secondary>Save for later</Button>
             </ButtonsContainer>
-            <Gradient colors={["transparent", theme.colors.bg.primary]} />
+            <MovieGradient />
           </ImageContainer>
         )}
       />
