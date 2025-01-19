@@ -12,7 +12,7 @@ const TabsContainer = styled(Animated.View)<{ insets: number }>(
   ({ theme, insets }) => ({
     backgroundColor: theme.colors.bg.tertiary,
     position: "absolute",
-    bottom: !insets ? 10 : 0,
+    bottom: !insets ? 10 : insets / 1.5,
     left: "50%",
     transform: [
       {

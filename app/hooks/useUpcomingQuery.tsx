@@ -4,7 +4,7 @@ import { axiosClient } from "../utils/axiosClient";
 import { MovieResponse } from "../utils/interfaces";
 import { hoursToMiliseconds } from "../utils/hoursToMiliseconds";
 
-export const useUpcomingQuery = () =>
+export const useUpcomingQuery = (queryEnabled: boolean) =>
   useQuery<MovieResponse>({
     queryKey: [queryKeys.UPCOMING],
     queryFn: async () => {
@@ -13,4 +13,5 @@ export const useUpcomingQuery = () =>
       return movies;
     },
     staleTime: hoursToMiliseconds(6),
+    enabled: queryEnabled,
   });
