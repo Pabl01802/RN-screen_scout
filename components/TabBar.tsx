@@ -5,7 +5,7 @@ import { BodyText } from "./Text/BodyText";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useTheme } from "@emotion/react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useHomeListStore } from "../theme/stores/useHomeListStore";
+import { useHomeListStore } from "../hooks/stores/useHomeListStore";
 import Animated, { useSharedValue, withSpring } from "react-native-reanimated";
 
 const TabsContainer = styled(Animated.View)<{ insets: number }>(

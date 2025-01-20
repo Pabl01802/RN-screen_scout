@@ -8,7 +8,7 @@ import { Heading2 } from "../../components/Text/Heading2";
 import { usePopularQuery } from "../../hooks/usePopularQuery";
 import { MovieCard } from "../../components/MovieCard";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useHomeListStore } from "../../theme/stores/useHomeListStore";
+import { useHomeListStore } from "../../hooks/stores/useHomeListStore";
 import { CategoriesButtons } from "../../components/CategoriesButtons";
 import { Category } from "../../utils/interfaces";
 import { useNowPlayingQuery } from "../../hooks/useNowPlayingQuery";

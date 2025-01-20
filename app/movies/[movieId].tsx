@@ -1,6 +1,5 @@
 import { View } from "react-native";
 import React from "react";
-import { Container } from "../../components/Container";
 import { BodyText } from "../../components/Text/BodyText";
 import { useLocalSearchParams } from "expo-router/build/hooks";
 import { useGetMovieQuery } from "../../hooks/useGetMovieQuery";
@@ -13,6 +12,7 @@ import { useTheme } from "@emotion/react";
 import { Spacer } from "../../components/Spacer";
 import { GenrePill } from "../../components/GenrePill";
 import { Heading3 } from "../../components/Text/Heading3";
+import { ScrollableContainer } from "../../components/ScrollableContainer";
 
 const MovieBackdrop = styled.Image({
   width: "100%",
@@ -36,7 +36,7 @@ const MovieDetails = () => {
   );
 
   return (
-    <Container>
+    <ScrollableContainer>
       {isFetching ? (
         <LoadingIndicator />
       ) : (
@@ -55,6 +55,8 @@ const MovieDetails = () => {
             <Heading3>{movie?.release_date}</Heading3>
             <Spacer height={theme.spacings.m} />
             <BodyText>{movie?.overview}</BodyText>
+            <BodyText>{movie?.overview}</BodyText>
+            <BodyText>{movie?.overview}</BodyText>
             <GenresContainer
               horizontal
               contentContainerStyle={{
@@ -68,7 +70,8 @@ const MovieDetails = () => {
           </StyledView>
         </>
       )}
-    </Container>
+      <Spacer height={theme.spacings.lg} />
+    </ScrollableContainer>
   );
 };
 
