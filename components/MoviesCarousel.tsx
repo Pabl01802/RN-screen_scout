@@ -44,7 +44,9 @@ export const MoviesCarousel = () => {
 
   const router = useRouter();
 
-  const nowPlaying = useNowPlayingQuery();
+  const { data: nowPlaying } = useNowPlayingQuery();
+
+  const movies = nowPlaying?.pages.flatMap((page) => page.results) || [];
 
   const handleSaveMovie = (movie: StorageMovie) => {
     addMovie({
@@ -66,7 +68,7 @@ export const MoviesCarousel = () => {
         width={width}
         height={width / 2}
         autoPlay={true}
-        data={nowPlaying?.data?.results || []}
+        data={movies}
         scrollAnimationDuration={2000}
         autoPlayInterval={6000}
         renderItem={({ item }) => (

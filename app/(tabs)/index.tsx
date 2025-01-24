@@ -31,13 +31,13 @@ const Home = () => {
   const [columns] = useState(2);
   const setIsScrolling = useHomeListStore((state) => state.setIsScrolling);
 
-  const { data: popular, isFetching: isPopularFetching } = usePopularQuery();
-  const { data: nowPlaying, isFetching: isNowPlayingFetching } =
+  const { data: popular, fetchNextPage: fetchNextPopular } = usePopularQuery();
+  const { data: nowPlaying, fetchNextPage: fetchNextNowPlaying } =
     useNowPlayingQuery();
-  const { data: upcoming, isFetching: isUpcomingFetching } = useUpcomingQuery(
+  const { data: upcoming, fetchNextPage: fetchNextUpcoming } = useUpcomingQuery(
     category === "Upcoming"
   );
-  const { data: topRated, isFetching: isTopRatedFetching } = useTopRatedQuery(
+  const { data: topRated, fetchNextPage: fetchNextTopRated } = useTopRatedQuery(
     category === "Top Rated"
   );
 
@@ -53,23 +53,38 @@ const Home = () => {
   const getFilteredData = () => {
     switch (category) {
       case "Popular":
-        return popular;
+        return popular?.pages.flatMap((page) => page.results) || [];
       case "Now Playing":
-        return nowPlaying;
+        return nowPlaying?.pages.flatMap((page) => page.results) || [];
       case "Upcoming":
-        return upcoming;
+        return upcoming?.pages.flatMap((page) => page.results) || [];
       case "Top Rated":
-        return topRated;
+        return topRated?.pages.flatMap((page) => page.results) || [];
       default:
-        return popular;
+        return popular?.pages.flatMap((page) => page.results) || [];
+    }
+  };
+
+  const fetchNextPage = () => {
+    switch (category) {
+      case "Popular":
+        return fetchNextPopular();
+      case "Now Playing":
+        return fetchNextNowPlaying();
+      case "Upcoming":
+        return fetchNextUpcoming();
+      case "Top Rated":
+        return fetchNextTopRated();
+      default:
+        return fetchNextPopular();
     }
   };
 
   const displayLoading = () => {
-    if (category === "Now Playing" && isNowPlayingFetching) return true;
-    else if (category === "Popular" && isPopularFetching) return true;
-    else if (category === "Top Rated" && isTopRatedFetching) return true;
-    else if (category === "Upcoming" && isUpcomingFetching) return true;
+    if (category === "Now Playing" && !nowPlaying?.pages) return true;
+    else if (category === "Popular" && !popular?.pages) return true;
+    else if (category === "Top Rated" && !topRated?.pages) return true;
+    else if (category === "Upcoming" && !upcoming?.pages) return true;
     else return false;
   };
 
@@ -86,11 +101,11 @@ const Home = () => {
         <StyledLoading />
       ) : (
         <FlatList
-          data={getFilteredData()?.results}
+          data={getFilteredData()}
           renderItem={({ item }) => (
             <MovieCard data={item} selected={selectedCard} />
           )}
-          keyExtractor={(item) => item.id.toString()}
+          keyExtractor={(item, index) => `${item.id.toString()}-${index}`}
           numColumns={columns}
           columnWrapperStyle={{
             justifyContent: "space-around",
@@ -101,6 +116,8 @@ const Home = () => {
           }}
           onMomentumScrollBegin={() => setIsScrolling(true)}
           onMomentumScrollEnd={() => setIsScrolling(false)}
+          onEndReachedThreshold={0.5}
+          onEndReached={() => fetchNextPage()}
         />
       )}
     </Container>
