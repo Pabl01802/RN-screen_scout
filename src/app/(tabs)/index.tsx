@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { MoviesCarousel } from "../../components/MoviesCarousel";
 import { useTheme } from "@emotion/react";
 import { Container } from "../../components/Container";
 import styled from "@emotion/native";
-import { FlatList } from "react-native";
+import { FlatList, TouchableOpacity } from "react-native";
 import { Heading2 } from "../../components/Text/Heading2";
 import { usePopularQuery } from "../../hooks/usePopularQuery";
 import { MovieCard } from "../../components/MovieCard";
@@ -27,9 +27,10 @@ const StyledLoading = styled(LoadingIndicator)({
 });
 
 const Home = () => {
+  const setIsScrolling = useHomeListStore((state) => state.setIsScrolling);
+
   const [category, setCategory] = useState<Category>("Popular");
   const [columns] = useState(2);
-  const setIsScrolling = useHomeListStore((state) => state.setIsScrolling);
 
   const { data: popular, fetchNextPage: fetchNextPopular } = usePopularQuery();
   const { data: nowPlaying, fetchNextPage: fetchNextNowPlaying } =
@@ -40,6 +41,8 @@ const Home = () => {
   const { data: topRated, fetchNextPage: fetchNextTopRated } = useTopRatedQuery(
     category === "Top Rated"
   );
+
+  const flatListRef = useRef<FlatList>(null);
 
   const insets = useSafeAreaInsets();
   const theme = useTheme();
@@ -88,19 +91,29 @@ const Home = () => {
     else return false;
   };
 
+  const scrollToTop = () => {
+    flatListRef.current?.scrollToOffset({
+      animated: true,
+      offset: 0,
+    });
+  };
+
   return (
     <Container>
       <MoviesCarousel />
       <StyledContainer>
         <CategoriesButtons category={category} setCategory={setCategory} />
-        <Heading2 color={theme.colors.bg.secondary} bold>
-          {category}
-        </Heading2>
+        <TouchableOpacity onPress={scrollToTop} activeOpacity={1}>
+          <Heading2 color={theme.colors.bg.secondary} bold>
+            {category}
+          </Heading2>
+        </TouchableOpacity>
       </StyledContainer>
       {displayLoading() ? (
         <StyledLoading />
       ) : (
         <FlatList
+          ref={flatListRef}
           data={getFilteredData()}
           renderItem={({ item }) => (
             <MovieCard data={item} selected={selectedCard} />
