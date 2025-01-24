@@ -7,6 +7,7 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useTheme } from "@emotion/react";
 import { useSavedMoviesStore } from "../hooks/stores/useSavedMoviesStore";
 import { useRouter } from "expo-router";
+import { TouchableOpacity } from "react-native";
 
 interface SavedMovieTileProps {
   movie: StorageMovie;
@@ -55,12 +56,9 @@ export const SavedMovieTile = ({ movie }: SavedMovieTileProps) => {
           {title}
         </BodyText>
       </MovieInfo>
-      <FontAwesome
-        name="trash"
-        size={24}
-        color={theme.colors.bg.secondary}
-        onPress={() => removeMovie(id)}
-      />
+      <TouchableOpacity hitSlop={theme.hitSlop} onPress={() => removeMovie(id)}>
+        <FontAwesome name="trash" size={24} color={theme.colors.bg.secondary} />
+      </TouchableOpacity>
     </Tile>
   );
 };

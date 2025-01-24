@@ -1,4 +1,5 @@
 import { colors } from "./colors";
+import { hitSlop } from "./hitSlop";
 import { spacings } from "./spacings";
 
 export const theme = {
@@ -8,6 +9,7 @@ export const theme = {
   spacings: {
     ...spacings,
   },
+  hitSlop,
 };
 
 type AppTheme = typeof theme;
