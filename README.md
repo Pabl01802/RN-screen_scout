@@ -27,6 +27,12 @@ This app uses TMDB API. Check out its documentation for more details:
 - **Movie information**: Each movie has its subpage where you can find its description and information about to what categories it belongs to.
 - **Saved movies list**: You can locally store movies by clicking save button. It may be a good option if you wanted to choose your favourite movies and save them to the list so that you can watch them later!
 
+## 📷Screenshots📷
+<img src="https://github.com/user-attachments/assets/dd39bca9-0e30-472c-ad71-a1f8ae6c68ec" width=200 />
+<img src="https://github.com/user-attachments/assets/4cea2035-4cb9-47bc-905d-1c306fa5905e" width=200 />
+<img src="https://github.com/user-attachments/assets/398a105a-adc8-4628-946a-006ead9d83d5" width=200 />
+<img src="https://github.com/user-attachments/assets/c4ffbed5-7592-4241-864f-69fbc1d518b7" width=200 />
+
 ## 🔗Installation🔗
 
 To install app locally on your PC do these steps:
