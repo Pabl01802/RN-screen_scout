@@ -15,11 +15,9 @@ This app uses TMDB API. Check out its documentation for more details:
 - **Expo Router** (for routing)
 - **Async Storage** (for storing data locally)
 - **React Native Reanimated** (for simple animations)
+- **React Native Gesture Handler** (handling users gestures)
 - **React Native Carousel** (simple react native carousel image slider)
 - **Zustand** (global state handling)
-- **ESLint** (to avoid writing useless code)
-- **Husky** (for pre-commit and commit-msg hooks)
-- **CommitLint** (I wanted my commits to be in a Conventional Commits specification)
 
 ## 💎Features💎 
 
