@@ -9,7 +9,7 @@ This app uses TMDB API. Check out its documentation for more details:
 
 - **React Native** (for creating mobile app)
 - **TypeScript** (for static typing and better code readability)
-- **emotion** (styled components for convenient style managemenent)
+- **Emotion** (styled components for convenient style managemenent)
 - **Axios** (for sending requests)
 - **Tanstack Query** (for handling queries)
 - **Expo Router** (for routing)
